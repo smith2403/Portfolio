@@ -1,5 +1,8 @@
 import React from "react";
 import { words } from "../constants/index.js";
+import Button from "../components/Button.jsx";
+import HeroExperience from "../components/HeroModels/HeroExperience.jsx";
+
 const Hero = () => {
   return (
     <section className="relative overflow-hidden" id="hero">
@@ -41,8 +44,19 @@ const Hero = () => {
               to bring your ideas to life!
             </p>
           </div>
+          <Button
+            className="md:w-80 md:h-16 w-60 h-12"
+            id="button"
+            text="See my work"
+          />
         </header>
         {/* RIGHT: 3d model */}
+
+        <figure>
+          <div className="hero-3d-layout">
+            <HeroExperience />
+          </div>
+        </figure>
       </div>
     </section>
   );
