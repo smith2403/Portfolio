@@ -2,12 +2,31 @@ import React from "react";
 import { words } from "../constants/index.js";
 import Button from "../components/Button.jsx";
 import HeroExperience from "../components/HeroModels/HeroExperience.jsx";
-
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import AnimatedCouter from "../components/AnimatedCouter.jsx";
 const Hero = () => {
+  useGSAP(() => {
+    gsap.fromTo(
+      ".hero-text h1",
+      {
+        y: 50,
+        opacity: 0,
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        stagger: 0.2,
+        ease: "power2.inOut",
+      },
+    );
+  });
+
   return (
     <section className="relative overflow-hidden" id="hero">
       <div className="absolute top-0 left-0 z-10">
-        <img src="/public/images/bg.png" alt="back" />
+        <img src="/images/bg.png" alt="back" />
       </div>
 
       <div className="hero-layout">
@@ -19,9 +38,9 @@ const Hero = () => {
                 Shaping
                 <span className="slide">
                   <span className="wrapper">
-                    {words.map((word) => (
+                    {words.map((word, index) => (
                       <span
-                        key={word.text}
+                        key={`${word.text}-${index}`}
                         className="flex items-center md:gap-3 gap-1 pb-2"
                       >
                         <img
@@ -58,6 +77,8 @@ const Hero = () => {
           </div>
         </figure>
       </div>
+
+      <AnimatedCouter />
     </section>
   );
 };
