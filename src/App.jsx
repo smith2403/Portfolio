@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import FeatureCards from "./sections/FeatureCards";
 import Experiences from "./sections/Experiences";
 import TechStack from "./sections/TechStack";
+import Contact from "./sections/Contact";
 const App = () => {
   return (
     <main>
@@ -14,6 +15,7 @@ const App = () => {
       <FeatureCards />
       <Experiences />
       <TechStack />
+      <Contact />
     </main>
   );
 };
