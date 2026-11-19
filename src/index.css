@@ -239,19 +239,23 @@ section {
   }
 
   .timeline-wrapper {
-    @apply absolute top-0 xl:left-[35.5vw] md:left-10 left-5 h-full flex justify-center;
+    @apply relative flex flex-col items-center shrink-0 w-14;
   }
 
   .timeline {
-    @apply absolute z-30 h-[110%] -top-10 w-14 md:w-28 bg-black;
+    @apply hidden;
   }
 
   .timeline-logo {
-    @apply md:size-20 size-10 flex-none rounded-full flex justify-center items-center md:-translate-y-7 border border-black-50 bg-black-100;
+    @apply md:size-16 size-12 flex-none rounded-full flex justify-center items-center border border-white/20 bg-black-100 p-2;
+  }
+
+  .timeline-logo img {
+    @apply w-full h-full object-contain;
   }
 
   .exp-card-wrapper {
-    @apply flex flex-col-reverse xl:flex-row xl:gap-20 gap-10 justify-between;
+    @apply flex flex-row gap-6 md:gap-10 justify-start;
   }
 
   .gradient-edge {
@@ -366,14 +370,16 @@ section {
 
 .gradient-line {
   width: 2px;
+  flex: 1;
+  min-height: 100px;
   background: linear-gradient(
-    0deg,
-    rgba(69, 222, 196, 0) 0%,
-    #62e0ff 25%,
-    #52aeff 37.51%,
-    #fd5c79 62.83%,
-    #6d45ce 92.91%
+    180deg,
+    #62e0ff 0%,
+    #52aeff 35%,
+    #fd5c79 70%,
+    #6d45ce 100%
   );
+  transform-origin: top center;
 }
 
 .gradient-edge:nth-of-type(1) {
@@ -442,7 +448,8 @@ section {
   border: 2px solid transparent;
   background: var(--gradient);
   background-attachment: fixed;
-  mask: linear-gradient(#0000, #0000),
+  mask:
+    linear-gradient(#0000, #0000),
     conic-gradient(
       from calc((var(--start) - 15) * 1deg),
       #ffffff1f 0deg,

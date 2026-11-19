@@ -1,89 +1,42 @@
+
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { expCards } from "../constants";
 import TitleHeader from "../components/TitleHeader";
-import GlowCard from "../components/Glowcard";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
   useGSAP(() => {
-    // Loop through each timeline card and animate them in
-    // as the user scrolls to each card
+    // Animate timeline lines as you scroll
+    gsap.utils.toArray(".gradient-line").forEach((line) => {
+      gsap.from(line, {
+        scaleY: 0,
+        transformOrigin: "top center",
+        ease: "none",
+        scrollTrigger: {
+          trigger: line,
+          start: "top 80%",
+          end: "bottom 60%",
+          scrub: true,
+        },
+      });
+    });
+
+    // Animate experience cards
     gsap.utils.toArray(".timeline-card").forEach((card) => {
       gsap.from(card, {
-        // Move the card in from the left
-        xPercent: -100,
-        // Make the card invisible at the star
         opacity: 0,
-        // Set the origin of the animation to the left side of the card
-        transformOrigin: "left left",
-        // Animate over 1 second
+        x: -40,
         duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the card is 80% of the way down the screen
+        ease: "power2.out",
         scrollTrigger: {
-          // The card is the trigger element
           trigger: card,
-          // Trigger the animation when the card is 80% down the screen
           start: "top 80%",
         },
       });
     });
-
-    // Animate the timeline height as the user scrolls
-    // from the top of the timeline to 70% down the screen
-    // The timeline height should scale down from 1 to 0
-    // as the user scrolls up the screen
-    gsap.to(".timeline", {
-      // Set the origin of the animation to the bottom of the timeline
-      transformOrigin: "bottom bottom",
-      // Animate the timeline height over 1 second
-      ease: "power1.inOut",
-      // Trigger the animation when the timeline is at the top of the screen
-      // and end it when the timeline is at 70% down the screen
-      scrollTrigger: {
-        trigger: ".timeline",
-        start: "top center",
-        end: "70% center",
-        // Update the animation as the user scrolls
-        onUpdate: (self) => {
-          // Scale the timeline height as the user scrolls
-          // from 1 to 0 as the user scrolls up the screen
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
-        },
-      },
-    });
-
-    // Loop through each expText element and animate them in
-    // as the user scrolls to each text element
-    gsap.utils.toArray(".expText").forEach((text) => {
-      // Animate the text opacity from 0 to 1
-      // and move it from the left to its final position
-      // over 1 second with a power2 ease-in-out curve
-      gsap.from(text, {
-        // Set the opacity of the text to 0
-        opacity: 0,
-        // Move the text from the left to its final position
-        // (xPercent: 0 means the text is at its final position)
-        xPercent: 0,
-        // Animate over 1 second
-        duration: 1,
-        // Use a power2 ease-in-out curve
-        ease: "power2.inOut",
-        // Trigger the animation when the text is 60% down the screen
-        scrollTrigger: {
-          // The text is the trigger element
-          trigger: text,
-          // Trigger the animation when the text is 60% down the screen
-          start: "top 60%",
-        },
-      });
-    }, "<"); // position parameter - insert at the start of the animation
   }, []);
 
   return (
@@ -96,47 +49,56 @@ const Experience = () => {
           title="Professional Work Experience"
           subtitle="💼 My Career Overview"
         />
-        <div className="mt-32 relative">
-          <div className="relative z-50 xl:space-y-32 space-y-10">
-            {expCards.map((card) => (
-              <div key={card.title} className="exp-card-wrapper">
-                <div className="xl:w-2/6">
-                  <GlowCard card={card}>
-                    <div>
-                      <img src={card.imgPath} alt="exp-img" />
-                    </div>
-                  </GlowCard>
-                </div>
-                <div className="xl:w-4/6">
-                  <div className="flex items-start">
-                    <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
-                    </div>
-                    <div className="expText flex xl:gap-20 md:gap-10 gap-5 relative z-20">
-                      <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" />
-                      </div>
-                      <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
-                        <p className="my-5 text-white-50">
-                          🗓️&nbsp;{card.date}
-                        </p>
-                        <p className="text-[#839CB5] italic">
-                          Responsibilities
-                        </p>
-                        <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
-                          {card.responsibilities.map(
-                            (responsibility, index) => (
-                              <li key={index} className="text-lg">
-                                {responsibility}
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    </div>
+
+        <div className="mt-20 md:mt-32 relative">
+          <div className="relative z-10 flex flex-col gap-12 md:gap-20">
+            {expCards.map((card, index) => (
+              <div
+                key={card.title}
+                className="timeline-card relative flex gap-6 md:gap-10"
+              >
+                {/* Timeline and company logo */}
+                <div className="relative flex flex-col items-center shrink-0 w-12 md:w-16">
+                  <div className="timeline-logo relative z-10">
+                    <img
+                      src={card.logoPath}
+                      alt={`${card.title} logo`}
+                    />
                   </div>
+
+                  {index !== expCards.length - 1 && (
+                    <div className="gradient-line w-1 flex-1 mt-4" />
+                  )}
+                </div>
+
+                {/* Experience details */}
+                <div className="expText flex-1 pb-12">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                    <h2 className="font-semibold text-2xl md:text-3xl">
+                      {card.title}
+                    </h2>
+
+                    <p className="text-white-50 text-sm">
+                      🗓️ {card.date}
+                    </p>
+                  </div>
+
+                  <p className="text-[#839CB5] italic mt-6">
+                    Responsibilities
+                  </p>
+
+                  <ul className="list-disc ms-5 mt-5 flex flex-col gap-4 text-white-50">
+                    {card.responsibilities.map(
+                      (responsibility, index) => (
+                        <li
+                          key={index}
+                          className="text-base md:text-lg leading-relaxed"
+                        >
+                          {responsibility}
+                        </li>
+                      )
+                    )}
+                  </ul>
                 </div>
               </div>
             ))}

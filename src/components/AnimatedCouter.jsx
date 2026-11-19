@@ -1,29 +1,29 @@
-
 import React from "react";
 import { counterItems } from "../constants/index.js";
-import * as CountUpModule from "react-countup";
-
-const CountUp = CountUpModule.default.default;
 
 const AnimatedCouter = () => {
   return (
     <div className="padding-x-lg xl:mt-0 mt-32" id="counter">
-      <div className="mx-auto grid-4-cols">
+      <div className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {counterItems.map((item) => (
           <div
-            key={item.label}
-            className="bg-zinc-900 rounded-lg p-10 flex flex-col justify-center"
+            key={item.title}
+            className="bg-zinc-900 rounded-xl p-8 flex flex-col gap-5 border border-white/10 hover:border-white/30 transition-all duration-300 hover:-translate-y-2"
           >
-            <div className="counter-number text-white text-5xl font-bold mb-2">
-              <CountUp
-                end={item.value}
-                suffix={item.suffix}
-             
-              />
+            <div className="flex justify-center">
+              <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-4xl">
+                {item.icon}
+              </div>
             </div>
 
-            <div className="text-white-50 text-lg">
-              {item.label}
+            <div className="text-center">
+              <h3 className="text-white text-xl font-semibold mb-3">
+                {item.title}
+              </h3>
+
+              <p className="text-white-50 text-sm leading-relaxed">
+                {item.description}
+              </p>
             </div>
           </div>
         ))}
