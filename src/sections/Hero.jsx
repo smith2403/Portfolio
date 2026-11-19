@@ -54,13 +54,14 @@ const Hero = () => {
                   </span>
                 </span>
               </h1>
-
-              <h1>into Real Projects</h1>
-              <h1>that Deliver Results</h1>
+              
+              <h1>into Working Software</h1>
+              <h1>that Solves Real Problems</h1>
             </div>
-            <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Hi! I am Smith, passionate front-end developer. Let's collaborate
-              to bring your ideas to life!
+
+            <p className="text-white-50 md:text-xl relative z-10 pointer-events-none max-w-md lg:max-w-lg xl:max-w-xl">
+              Hi, I'm Smith Kinny, a Developer into frontend, backend, AI and
+              machine learning. Always building, always learning.
             </p>
           </div>
           <Button
